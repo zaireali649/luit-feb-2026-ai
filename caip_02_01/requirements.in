@@ -1,5 +1,5 @@
 scikit-learn
 boto3
 pandas
-sagemaker
+sagemaker>=2,<3
 seaborn
