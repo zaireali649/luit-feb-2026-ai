@@ -1,0 +1,5 @@
+scikit-learn
+boto3
+pandas
+sagemaker>=2,<3
+seaborn
