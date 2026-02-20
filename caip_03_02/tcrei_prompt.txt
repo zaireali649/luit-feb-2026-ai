@@ -1,0 +1,20 @@
+Act as a devops engineer. 
+
+TASK:
+Here is what I need you to produce:
+Generate code to stream responses from a model in AWS Bedrock.
+
+CONTEXT:
+Audience: Junior Devops Engineers
+Goal: Teach them about boto3 and bedrock
+Constraint: Do not use models that require provisioned thruoughput.
+
+REFERENCE:
+Here are examples, standards, or prior work to match:
+bedrock_client = boto3.client('bedrock-runtime)
+
+EVALUATION:
+After you produce the answer, critique it and improve it.
+
+ITERATION:
+Ask me what to refine next.
