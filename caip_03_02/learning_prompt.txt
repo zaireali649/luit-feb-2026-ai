@@ -1,0 +1,9 @@
+Teach me [topic].
+
+Structure:
+1. Explain like I'm 5
+2. Explain at professional level
+3. Real-world example
+4. Hands-on mini project
+5. Common mistakes to avoid
+6. 3 key takeaways
