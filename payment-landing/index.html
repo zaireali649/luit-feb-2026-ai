@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure checkout — Pay your way</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <!-- Landing: choose payment option -->
+    <section id="landing" class="view active">
+      <div class="checkout-panel">
+        <div class="order-summary">
+          <span class="order-label">Amount</span>
+          <label class="price-input-wrap">
+            <span class="price-currency">$</span>
+            <input type="number" id="price-input" min="0" step="0.01" value="0" placeholder="0.00" inputmode="decimal" aria-label="Price in dollars">
+          </label>
+        </div>
+        <p class="trust-strip">
+          <span class="trust-icon" aria-hidden="true">&#128274;</span>
+          Secure checkout · No account required
+        </p>
+        <h1>Complete your purchase in seconds</h1>
+        <p class="subtitle">Pay with the app you already use. No card needed.</p>
+        <p class="social-proof">Trusted by millions of shoppers</p>
+        <div class="payment-grid">
+          <button type="button" class="payment-card" data-provider="Cash App">
+            <img src="https://vectorseek.com/wp-content/uploads/2021/12/vectorseek.com-Cashapp-Logo-Vector.png" alt="" class="payment-logo" width="120" height="40">
+            <span class="payment-cta">Pay with Cash App</span>
+          </button>
+          <button type="button" class="payment-card" data-provider="Venmo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Venmo_Logo.svg" alt="" class="payment-logo" width="120" height="40">
+            <span class="payment-cta">Pay with Venmo</span>
+          </button>
+          <button type="button" class="payment-card payment-card--popular" data-provider="Klarna">
+            <span class="popular-badge">Popular</span>
+            <img src="https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg" alt="" class="payment-logo" width="120" height="40">
+            <span class="payment-cta">Pay with Klarna</span>
+          </button>
+          <button type="button" class="payment-card" data-provider="PayPal">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="" class="payment-logo" width="120" height="40">
+            <span class="payment-cta">Pay with PayPal</span>
+          </button>
+        </div>
+        <p class="reassurance">Your payment is protected. Cancel anytime before confirming.</p>
+      </div>
+    </section>
+
+    <!-- Checkout: confirm selection -->
+    <section id="checkout" class="view">
+      <div class="checkout-panel">
+        <div class="order-summary">
+          <span class="order-label">Your order</span>
+          <span id="checkout-amount" class="order-amount">$0.00</span>
+        </div>
+        <p class="trust-strip">
+          <span class="trust-icon" aria-hidden="true">&#128274;</span>
+          Secure checkout
+        </p>
+        <h2>Confirm your payment</h2>
+        <p class="chosen-method">Paying with <strong id="chosen-provider"></strong></p>
+        <p id="payment-redirect-note" class="payment-redirect-note" style="display: none;"></p>
+        <div class="checkout-actions">
+          <button type="button" id="confirm-pay" class="btn btn-primary">
+            Complete payment — <span id="confirm-amount">$0.00</span>
+          </button>
+          <button type="button" id="back-to-options" class="btn btn-secondary">Change payment method</button>
+        </div>
+        <p class="reassurance">You won’t be charged until you confirm.</p>
+      </div>
+    </section>
+
+    <!-- Success -->
+    <section id="success" class="view">
+      <div class="checkout-panel success-panel">
+        <div class="success-icon" aria-hidden="true">&#10003;</div>
+        <h2>You’re all set!</h2>
+        <p class="success-message">Your payment of <strong id="success-amount">$0.00</strong> was successful. Thank you for your order.</p>
+        <button type="button" id="start-over" class="btn btn-primary">Place another order</button>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
