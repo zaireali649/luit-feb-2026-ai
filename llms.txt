@@ -1,0 +1,98 @@
+# luit-feb-2026-ai
+
+> Repository containing a static payment checkout site (payment-landing) and CAIP course materials (notebooks, prompts, and scripts for AWS Bedrock / ML weeks).
+
+## Project Overview
+
+**Tech Stack**: Static HTML/CSS/JS (payment-landing); Python, Jupyter, AWS Bedrock (caip_*); XGBoost (caip_01_02, caip_02_*).
+**Status**: Active. Payment-landing is a working demo with real Cash App and Venmo pay links.
+**Purpose**: Payment-landing provides a conversion-optimized checkout page that redirects users to Cash App or Venmo with amount pre-filled; CAIP folders hold week-by-week course content and code.
+
+---
+
+## Core Documentation
+
+### README.md
+Minimal repo title. Read this file only to confirm project name; for real context use payment-landing/memory.md and payment-landing/tasks.md.
+
+### payment-landing/memory.md
+Narrative recap of the payment-landing project. Read this file to understand what the checkout page does, the three-step flow (landing → checkout → success), real vs demo payment methods (Cash App and Venmo use real pay links; Klarna and PayPal are demo-only), where payment identities live (CASH_APP_CASHTAG and VENMO_USERNAME in script.js), and design/UX decisions (trust strip, price input select-all, redirect note). Use when you need project context or to onboard on payment-landing.
+
+### payment-landing/tasks.md
+Task list and change reference for payment-landing. Read this file to see what’s done, where to change the Cash App cashtag or Venmo username, how to change copy or the “Popular” badge, and optional follow-ups (Klarna/PayPal, Venmo note). Use when modifying payment-landing or adding features.
+
+---
+
+## Payment Landing (Checkout Site)
+
+### payment-landing/index.html
+Single-page checkout structure with three views (landing, checkout, success). Read this file to understand the DOM: order summary and price input on landing, four payment cards with data-provider attributes (Cash App, Venmo, Klarna, PayPal), checkout panel with chosen-provider and confirm button, and success panel. Use when changing copy, adding a payment method, or adjusting the “Popular” badge (class payment-card--popular on a card). No build step; open in browser or serve the folder.
+
+### payment-landing/styles.css
+Layout and styling for the checkout page. Read this file to understand the checkout panel (white card on dark gradient), order summary and price input styles, trust strip and payment grid, payment card hover and “Popular” variant (payment-card--popular), button styles (btn-primary, btn-secondary), and success panel. Use when changing colors, spacing, or responsive behavior. References no JS.
+
+### payment-landing/script.js
+Checkout flow logic and real payment redirects. Read this file to understand view switching (show(landing|checkout|success)), amount handling (getAmount(), getFormattedAmount(), price input), and when to read the price input (focus selects all). Essential for changing payment identities: CASH_APP_CASHTAG and VENMO_USERNAME at top of file. On confirm: if Cash App opens https://cash.app/$codeali/{amount}; if Venmo opens https://venmo.com/codeali?txn=pay&amount={amount} (both in new tab). Redirect note text is set in show() for Cash App and Venmo. Use this file when adding a new real payment method or changing cashtag/username.
+
+---
+
+## CAIP Course Materials (by week)
+
+### caip_01_01/
+Week 1 call 1 materials. Contains caip_week1_call1.ipynb and .html, plus intro_slide.md, agenda.md, outtro_slide.md. Reference when working on week 1 content or exports.
+
+### caip_01_02/
+Week 1 call 2: XGBoost and model code. Read optimized_model.py and xgboost_model.py for training/inference patterns; caip_week1_call2.ipynb and .html for the session. intro_slide.md, agenda.md, outtro_slide.md for slides. Use when editing week 1 call 2 or reusing XGBoost scripts.
+
+### caip_02_01/
+Week 2 call 1. train_model.py and caip_week2_call1.ipynb. Use when modifying week 2 call 1 training or notebook.
+
+### caip_02_02/
+Week 2 call 2. train_model.py, inference.py, caip_week2_call2.ipynb. Use when working on inference or week 2 call 2 content.
+
+### caip_03_01/
+Week 3 call 1. tcrei-template.md and caip_week3_call1.ipynb. Reference for week 3 call 1 structure and template.
+
+### caip_03_02/
+Week 3 call 2: AWS Bedrock and streaming. Read bedrock_stream.py to understand Bedrock streaming invocation; call_bedrock.py and run_bedrock.py for call patterns. Prompt files: tcrei_prompt.txt, simple_prompt.txt, learning_prompt.txt, prompt_template.txt, complex_prompt.txt. throttling_explanation.md explains rate limits; claude_opus_response.md and flower_data.json are supporting assets. Use when changing Bedrock calls, prompts, or adding throttling handling.
+
+### caip_04_01/
+Week 4 call 1. caip_week4_call1.ipynb. Reference when editing week 4 materials.
+
+---
+
+## Key Concepts
+
+**Payment-landing flow**
+1. User enters amount in price input (select-all on focus).
+2. User clicks a payment card → checkout view shows chosen provider and amount; for Cash App or Venmo a redirect note is shown.
+3. User clicks “Complete payment — $X.XX” → for Cash App or Venmo, pay link opens in new tab with amount; then success view is shown. For Klarna/PayPal, only success view is shown (no real payment).
+
+**Payment identities (payment-landing)**
+- Cash App: cashtag $codeali → script.js CASH_APP_CASHTAG = 'codeali'. Pay URL: https://cash.app/$codeali/{amount}.
+- Venmo: handle @codeali → script.js VENMO_USERNAME = 'codeali'. Pay URL: https://venmo.com/codeali?txn=pay&amount={amount}.
+
+**Changing payment-landing**
+- New payment method: add card in index.html with data-provider; in script.js add constant and branch in confirmPay handler to build URL and window.open(..., '_blank').
+- Change cashtag or Venmo username: edit CASH_APP_CASHTAG or VENMO_USERNAME in payment-landing/script.js.
+
+---
+
+## Common Tasks
+
+**To change Cash App or Venmo identity**: Edit payment-landing/script.js; set CASH_APP_CASHTAG or VENMO_USERNAME at the top.
+
+**To add a real payment method (e.g. another app)**: Add a payment card in payment-landing/index.html with data-provider; in script.js add a config constant and in the confirmPay listener build the pay URL and call window.open(url, '_blank', 'noopener,noreferrer'); optionally set paymentRedirectNote in show() for that provider.
+
+**To change checkout copy or trust strip**: Edit payment-landing/index.html and payment-landing/styles.css; reassurance and redirect note text are in index.html and script.js (show() for redirect note).
+
+**To mark a different payment as “Popular”**: In payment-landing/index.html move the class payment-card--popular from the current card to another; add a <span class="popular-badge">Popular</span> inside that card if missing.
+
+**To run payment-landing**: Open payment-landing/index.html in a browser, or run a static server (e.g. npx serve payment-landing) from repo root.
+
+**To work on CAIP Bedrock or prompts**: Start with caip_03_02/bedrock_stream.py and the .txt prompt files in that folder; see throttling_explanation.md for rate-limit handling.
+
+---
+
+**Last Updated**: 2026-02-24
+**Major coverage**: payment-landing (full); caip_* (overview by folder). Update llms.txt when adding new top-level projects or changing payment-landing flow/identities.
